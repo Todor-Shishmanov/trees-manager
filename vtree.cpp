@@ -1,15 +1,17 @@
 ﻿#include "vtree.h"
 #include "utility.h"
+#include <vector>
+#include <string>
 #include <queue>
 #include <stack>
 #include <fstream>
-
-typedef std::pair<VNode const* const, VNode const* const> NodePair;
 
 using std::vector;
 using std::string;
 using std::queue;
 using std::stack;
+
+typedef std::pair<VNode const* const, VNode const* const> NodePair;
 
 void VNode::addChild(VNode* child) {
     if (!child || child->parent == this) return;

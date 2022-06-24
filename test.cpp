@@ -342,7 +342,7 @@ int run_test() {
 			VTest_tree_case_copy();
 		}
 		if (test_prefix_tree) {
-			//Trie_test_case1();
+			Trie_test_case1();
 			Trie_test_case2();
 		}
 		if (test_ui) {

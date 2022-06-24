@@ -54,7 +54,7 @@ inline void Trie<T>::insert(const std::string key, const T& new_value){
 template<class T>
 inline bool Trie<T>::find(const std::string key, T& value) const {
 	Node* iterator = findNode(key);
-	if (!iterator) {
+	if (!iterator || !iterator->end_node) {
 		return false;
 	}
 	value = iterator->value;
@@ -64,12 +64,12 @@ inline bool Trie<T>::find(const std::string key, T& value) const {
 template<class T>
 inline void Trie<T>::remove(const std::string key){
 	Node* iterator = findNode(key);
-	if (!iterator) return;
+	if (!iterator || !iterator->end_node) return; //not a key
 	if (iterator->children.size()) { //part of different key
 		iterator->end_node = false;
 		return;
 	}
-	while (iterator->parent->children.size() == 1 && iterator->parent != root_ && !iterator->parent->end_node) iterator = iterator->parent;
+	while (iterator->parent->children.size() == 1 && !iterator->parent->end_node && iterator->parent != root_) iterator = iterator->parent;
 	Node* common_prefix_node = iterator->parent; //first node that is part of other keys
 	for (size_t i = 0; i < common_prefix_node->children.size(); i++) {
 		if (common_prefix_node->children[i]->c ==  iterator->c) {

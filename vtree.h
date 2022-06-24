@@ -7,7 +7,7 @@
 //TODO: Fix ValueTree so that it is a proper class by it's own. Big 5 and so on
 //TODO: VNode can be nested class
 //TODO: Fix naming of stuff, code is simple enough to be read by itself
-//TODO: containsByValue and other functions must get by reference not pointers
+//TODO: containsByValue and other public functions must get by reference not pointers
 
 struct VNode {
 	VNode(int value) :
@@ -44,7 +44,6 @@ public:
 	~ValueTree() { deleteNode(root_); }
 	ValueTree(const ValueTree& other);
 	ValueTree& operator=(const ValueTree& other);
-
 
 	friend std::ostream& operator<<(std::ostream& os, const ValueTree& tree);
 

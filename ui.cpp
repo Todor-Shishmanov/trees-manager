@@ -9,10 +9,10 @@ using std::string;
 using std::vector;
 
 UI::~UI(){
-	vector<string> names = trees.get_keys();
+	vector<string> names = trees_.get_keys();
 	for (size_t i = 0; i < names.size(); i++) {
 		ValueTree* temp;
-		trees.find(names[i], temp);
+		trees_.find(names[i], temp);
 		delete temp;
 	}
 }
@@ -20,7 +20,7 @@ UI::~UI(){
 void UI::run() {
 	help();
 	cout << endl;
-	while (!stop_running) {
+	while (!stop_running_) {
 		try { getInput(); }
 		catch (std::invalid_argument& exception) { cout << exception.what() << endl << endl; }
 	}
@@ -28,22 +28,22 @@ void UI::run() {
 
 ValueTree* UI::find(string tree_name){
 	ValueTree* tree;
-	if (!trees.find(tree_name, tree)) {
+	if (!trees_.find(tree_name, tree)) {
 		return nullptr;
 	}
 	return tree;
 }
 
 void UI::add_tree(string tree_name, ValueTree* tree){
-	trees.insert(tree_name, tree);
+	trees_.insert(tree_name, tree);
 }
 
 void UI::quit(){
-	stop_running = true;
+	stop_running_ = true;
 }
 
 void UI::show(){
-	vector<string> names = trees.get_keys();
+	vector<string> names = trees_.get_keys();
 	if (!names.size()) {
 		cout << "No trees loaded yet." << endl;
 		return;
@@ -69,10 +69,11 @@ void UI::help(){
 
 void UI::print(std::string tree_name){
 	ValueTree* t;
-	if (!trees.find(tree_name, t)) {
-		cout << "There is no tree with this name.";
+	if (!trees_.find(tree_name, t)) {
+		//cout << "There is no tree with this name." << endl;
+		throw std::invalid_argument("There is no tree with this name.");
 	}
-	cout << "Tree "<<tree_name<<": " << endl << *t << endl;
+	cout << "Tree " << tree_name << ": " << endl << *t << endl;
 }
 
 
