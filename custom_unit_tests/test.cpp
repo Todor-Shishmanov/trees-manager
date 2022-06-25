@@ -1,6 +1,8 @@
-#include "ui.h"
-#include "vtree.h"
-#include "trie.h"
+#include "../ui.h"
+#include "../vtree.h"
+#include "../trie.h"
+#include "../custom_unit_tests/test.h"
+
 #include <iostream>
 #include <filesystem> // fs::remove
 namespace fs = std::filesystem;

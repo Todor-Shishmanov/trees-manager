@@ -1,5 +1,6 @@
 #include "ui.h"
-#include "test.h"
+#include "custom_unit_tests/test.h"
+
 int main() {
 	/*UI basic_ui;
 	basic_ui.run();*/
