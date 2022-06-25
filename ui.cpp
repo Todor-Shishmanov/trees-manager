@@ -116,14 +116,14 @@ void UI::contains(string first_tree, string second_tree){
 	ValueTree* t1 = find(first_tree), * t2 = find(second_tree);
 	if(!t1 || !t2) throw std::invalid_argument("Trees not found.");
 
-	if (t1->containsByValue(t2)) cout << first_tree << " contains " << second_tree << '.' << endl;
+	if (t1->containsByValue(*t2)) cout << first_tree << " contains " << second_tree << '.' << endl;
 	else cout << first_tree << " does not contain " << second_tree << '.' << endl;
 }
 
 void UI::remove(string first_tree, string second_tree){
 	ValueTree* t1 = find(first_tree), * t2 = find(second_tree);
 	if (!t1 || !t2) throw std::invalid_argument("Trees not found.");
-	t1->removeByValue(t2);
+	t1->removeByValue(*t2);
 }
 
 void UI::getInput(){

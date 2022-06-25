@@ -14,8 +14,8 @@ public:
 	Trie(const Trie& other);
 	Trie& operator=(const Trie& other);
 
-	bool find(const std::string key, T& value) const;
 	std::vector<std::string> get_keys() const { return keys_; }
+	bool find(const std::string key, T& value) const;
 	void insert(const std::string key, const T& new_value);
 	void remove(const std::string key);
 

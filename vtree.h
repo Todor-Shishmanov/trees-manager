@@ -47,19 +47,18 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const ValueTree& tree);
 
-	bool containsByValue(const ValueTree* t) const;
-	void removeByValue(const ValueTree* t);
+	bool containsByValue(const ValueTree& t) const;
+	void removeByValue(const ValueTree& t);
 	void loadFromFile(std::string file_name);
 	void saveAsFile(std::string file_name) const;
 
 private:
-	void cloneRoot(const ValueTree& other);
-	bool containsNode(const VNode* node) const;
+	void copyRoot(const ValueTree& other);
 	void deleteNode(VNode* node);
+
+	static int sumParentlessNodes(std::vector<const VNode*>& parentless_nodes);
+	static bool matchTree(const VNode* t1_root, const VNode* t2_root, std::vector<const VNode*>& remaining_nodes);
+	static bool matchTree(const VNode* t1_root, const VNode* t2_root);
 
 	VNode* root_;
 };
-
-int sumParentlessNodes(std::vector<VNode const*>& parentless_nodes);
-bool matchTree(const VNode* t1_root, const VNode* t2_root, std::vector<const VNode*>& remaining_nodes);
-bool matchTree(const VNode* t1_root, const VNode* t2_root);

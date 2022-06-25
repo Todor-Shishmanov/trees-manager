@@ -2,6 +2,9 @@
 #include "vtree.h"
 #include "trie.h"
 #include <iostream>
+#include <filesystem> // fs::remove
+namespace fs = std::filesystem;
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -11,184 +14,51 @@ using std::string;
 #include <stdlib.h>  
 #include <crtdbg.h>   //for malloc and free
 
-/*
-void VTree_test_case_removen() {
-	ValueTree big, small_tree, test_save_tree;
-	cout << endl << endl << endl << "Test case " << t1_file << " - " << t2_file << endl << endl << endl;
+void VTree_test_case_remove(string t1_file, string t2_file) {
+	ValueTree big_tree, small_tree;
 
-	string t1_file = "112.txt";
-	string t2_file = "1.txt";
-	//do stuff
-}
-*/
-
-void VTree_test_case_remove1() {
-	ValueTree big, small_tree, test_save_tree;
-
-	string t1_file = "112.txt";
-	string t2_file = "1.txt";
-	cout << endl << endl << endl << "Test case " << t1_file << " - " << t2_file << endl << endl << endl;
+	cout << "=================================================" << endl;
+	cout << "Test case remove " << t1_file << " - " << t2_file << endl << endl << endl;
 
 	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
+	big_tree.loadFromFile(t1_file);
 
-	big.removeByValue(&small_tree);
+	cout << t1_file << " tree:" << endl << big_tree << endl;
+	cout << t2_file << " tree:" << endl << small_tree << endl;
 
-	cout << big << endl;
-}
-void VTree_test_case_remove2() {
-	ValueTree big, small_tree, test_save_tree;
+	big_tree.removeByValue(small_tree);
 
-	string t1_file = "null.txt";
-	string t2_file = "null.txt";
-	cout << endl << endl << endl << "Test case " << t1_file << " - " << t2_file << endl << endl << endl;
-
-	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
-
-	big.removeByValue(&small_tree);
-
-	cout << big << endl;
+	cout << "Result tree: " << endl << big_tree << endl;
 }
 
-void VTree_test_case_remove3() {
-	ValueTree big, small_tree, test_save_tree;
+void VTree_test_case_contains(string t1_file, string t2_file, string expected) {
+	ValueTree big_tree, small_tree, test_save_tree;
 
-	string t1_file = "123.txt";
-	string t2_file = "null.txt";
-	cout << endl << endl << endl << "Test case " << t1_file << " - " << t2_file << endl << endl << endl;
-
-	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
-
-	big.removeByValue(&small_tree);
-
-	cout << big << endl;
-}
-
-void VTree_test_case_remove4() {
-	ValueTree big, small_tree, test_save_tree;
-
-	string t1_file = "123.txt";
-	string t2_file = "123.txt";
-	cout << endl << endl << endl << "Test case " << t1_file << " - " << t2_file << endl << endl << endl;
+	cout << "=================================================" << endl;
+	cout << "Test case contains " << t1_file << " - " << t2_file << endl << endl << endl;
 
 	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
+	big_tree.loadFromFile(t1_file);
 
-	big.removeByValue(&small_tree);
+	cout << "Small :" << endl << small_tree << endl;
+	cout << "Big :" << endl << big_tree << endl;
+	cout << "Small contains big: " << small_tree.containsByValue(big_tree) << endl;
+	cout << "Big contains small: " << big_tree.containsByValue(small_tree) << endl;
 
-	cout << big << endl;
-}
-
-void VTree_test_case_remove5() {
-	ValueTree big, small_tree, test_save_tree;
-
-	string t1_file = "nasty.txt";
-	string t2_file = "123.txt";
-	cout << endl << endl << endl << "Test case " << t1_file << " - " << t2_file << endl << endl << endl;
-
-	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
-
-	big.removeByValue(&small_tree);
-
-	cout << big << endl;
-}
-
-void VTree_test_case_remove6() {
-	ValueTree big, small_tree, test_save_tree;
-
-	string t1_file = "minus21.txt";
-	string t2_file = "two.txt";
-	cout << endl << endl << endl << "Test case " << t1_file << " - " << t2_file << endl << endl << endl;
-
-	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
-
-	big.removeByValue(&small_tree);
-
-	cout << big << endl;
+	cout << "Expected results: " << expected << endl;
 
 }
 
-void VTree_test_case_remove7() {
-	ValueTree big, small_tree, test_save_tree;
+void VTree_test_case_save(string tree_file) {
+	cout << "=================================================" << endl;
+	cout << "Test case VTree save" << endl;
 
-	string t1_file = "tripleCon.txt";
-	string t2_file = "oneCon.txt";
-	cout << endl << endl << endl << "Test case " << t1_file << " - " << t2_file << endl << endl << endl;
+	ValueTree tree, test_save_tree;
+	string save_file = "dummy_test_file.txt";
 
-	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
-
-	big.removeByValue(&small_tree);
-
-	cout << big << endl;
-
-}
-
-void VTree_test_case_remove8() {
-	ValueTree big, small_tree, test_save_tree;
-
-	string t1_file = "tripleCon.txt";
-	string t2_file = "two.txt";
-	cout << endl << endl << endl << "Test case " << t1_file << " - " << t2_file << endl << endl << endl;
-
-	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
-
-	big.removeByValue(&small_tree);
-
-	cout << big << endl;
-
-}
-
-void VTree_test_case_remove9() {
-	ValueTree big, small_tree, test_save_tree;
-
-	string t1_file = "uslovie.txt";
-	string t2_file = "uslovieSub.txt";
-	cout << endl << endl << endl << "Test case " << t1_file << " - " << t2_file << endl << endl << endl;
-
-	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
-
-	big.removeByValue(&small_tree);
-
-	cout << big << endl;
-
-}
-
-void VTree_test_case_contains() {
-	ValueTree big, small_tree;
-
-	string t1_file = "123.txt";
-	string t2_file = "1.txt";
-
-	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
-
-	cout << small_tree;
-	cout << big;
-	cout << "Small contains big: " << small_tree.containsByValue(&big) << endl;
-	cout << "Big contains small: " << big.containsByValue(&small_tree) << endl;
-}
-
-void VTree_test_case_save() {
-
-	ValueTree big, small_tree, test_save_tree;
-
-	string t1_file = "null.txt";
-	string t2_file = "null.txt";
-	string save_file = "test_save.txt";
-
-	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
-
-	big.removeByValue(&small_tree);
-	big.saveAsFile("test_save.txt");
-	cout << "Tree:" << endl << big << endl;
+	tree.loadFromFile(tree_file);
+	tree.saveAsFile(save_file);
+	cout << "Tree:" << endl << tree << endl;
 
 	test_save_tree.loadFromFile(save_file);
 	cout << "Tree from save file:" << endl << test_save_tree << endl;
@@ -201,157 +71,201 @@ void VTree_test_case_save() {
 		cout << line << endl;
 	}
 	stream.close();
-	cout << "End of file (on a new line)";
+	cout << endl;
+	fs::remove(save_file);
 }
 
-void test_for_case_copy(ValueTree t) {
-	t.loadFromFile("null.txt");
+//Helper for VTest_tree_case_copy()
+void foo(ValueTree t, string tree_file) {
+	t.loadFromFile(tree_file);
 }
 
-void VTest_tree_case_copy() {
-	ValueTree big, small_tree, copy_assignment;
-	string t1_file = "SmallOne.txt";
-	string t2_file = "BigOne.txt";
+void VTest_tree_case_copy(string t1_file, string t2_file) {
+	cout << "=================================================" << endl;
+	cout << "Test case VTree copy" << endl;
 
+	ValueTree tree, copy_tree;
 
-	small_tree.loadFromFile(t2_file);
-	big.loadFromFile(t1_file);
-	cout << "Trees before any copy: " << endl << small_tree << endl << big << endl;
-	copy_assignment = small_tree;
-	cout << "Tree after = : " << endl << small_tree << endl << copy_assignment << endl;
-	test_for_case_copy(big);
-	cout << "Tree after copy : " << endl << big;
+	tree.loadFromFile(t1_file);
+	copy_tree.loadFromFile(t2_file);
+	cout << "Trees before any copy: " << endl << "t1: "<<endl << tree << endl << "t2: " << endl<< copy_tree << endl;
+
+	copy_tree = tree;
+	cout << "t2 = t1" << endl;
+	cout << "Tree after copy assignment : " << endl << tree << endl << copy_tree << endl;
+
+	foo(tree, t2_file);
+	cout << "foo(tree)" << endl;
+	cout << "Tree after copy constructor (should be unchanged): " << endl << tree << endl;
 }
-void UI_test_case_1() {
-	UI test;
-	test.run();
-}
 
-
-void Test_trie_copy(Trie<int> t) {
+//Helper for Trie_test_case
+void foo(Trie<int> t) {
 	t.insert("random", 10);
 }
+
 void Trie_test_case1() {
+	cout << "=================================================" << endl;
+	cout << "Test case Trie<int>" << endl;
+
 	int one_value = 1;
 	string one_key = "o";
 	int two_value = 2;
 	string two_key = "b";
 	int three_value = 3;
-	string three_key = "ome";;
+	string three_key = "ome";
+
 	Trie<int> test_trie;
 	test_trie.insert(one_key, one_value);
+	cout << "Inserting: " << one_value << " with key " << one_key << endl;
 	test_trie.insert(two_key, two_value);
+	cout << "Inserting: " << two_value << " with key " << two_key << endl;
 	test_trie.insert(three_key, three_value);
+	cout << "Inserting: " << three_value << " with key " << three_key << endl;
 
-	int get_one;
-	if (test_trie.find(one_key, get_one)) {
-		cout << "One: " << get_one << endl;
+	int container;
+	if (test_trie.find(one_key, container)) {
+		cout << "OK: " << container << endl;
 	}
-	else cout << "One not found" << endl;
+	else cout << "ERROR!" << endl;
 
-	int get_two;
-	if (test_trie.find(two_key, get_two)) {
-		cout << "Two: " << get_two << endl;
+	if (test_trie.find(two_key, container)) {
+		cout << "OK: " << container << endl;
 	}
-	else cout << "Two not found" << endl;
-	int get_three;
-	if (test_trie.find(three_key, get_three)) {
-		cout << "Three: " << get_three << endl;
+	else cout << "ERROR!" << endl;
+
+	if (test_trie.find(three_key, container)) {
+		cout << "OK: " << container << endl;
 	}
-	else cout << "Three not found" << endl;
+	else cout << "ERROR!" << endl;
+
+	foo(test_trie);
+	cout << "Testing the copy constructor by using foo(), which inserts random key with value 10" << endl;
+
+	if (test_trie.find("random", container)) {
+		cout << "ERROR! found: " << container << endl;
+	}
+	else cout << "Random not found! (OK)" << endl;
+
 	test_trie.remove(three_key);
-	if (test_trie.find(three_key, get_three)) {
-		cout << "Three: " << get_three << endl;
-	}
-	else cout << "Three not found" << endl;
+	cout << "Removing third key: " << three_key << endl;
 
-	Test_trie_copy(test_trie);
+	if (test_trie.find(three_key, container)) {
+		cout << "ERROR! Found: " << container << endl;
+	}
+	else cout << "Third not found! (OK)" << endl;
 
-	int get_ten;
-	if (test_trie.find("random", get_ten)) {
-		cout << "Ten: " << get_ten << endl;
+	cout << "Trying to find the second key." << endl;
+	if (test_trie.find(two_key, container)) {
+		cout << "OK: " << container << endl;
 	}
-	else cout << "Ten not found" << endl;
-	if (test_trie.find(two_key, get_two)) {
-		cout << "Two: " << get_two << endl;
-	}
-	else cout << "Two not found" << endl;
+	else cout << "ERROR!" << endl;
 }
 
-void Trie_test_case2() {
+void Trie_test_case2(string t1_file, string t2_file, string t3_file) {
+	cout << "=================================================" << endl;
+	cout << "Test case Trie<ValueTree>" << endl;
+
 	ValueTree test_tree_1;
-	test_tree_1.loadFromFile("SmallOne.txt");
+	test_tree_1.loadFromFile(t1_file);
 	string one_key = "OneSmall";
 
 	ValueTree test_tree_2;
-	test_tree_2.loadFromFile("BigOne.txt");
+	test_tree_2.loadFromFile(t2_file);
 	string two_key = "BigSmall";
 
 	ValueTree test_tree_3;
-	test_tree_3.loadFromFile("oneCon.txt");
+	test_tree_3.loadFromFile(t3_file);
 	string three_key = "OneCon";
 
 	Trie<ValueTree> test_trie;
 	test_trie.insert(one_key, test_tree_1);
 	test_trie.insert(two_key, test_tree_2);
 	test_trie.insert(three_key, test_tree_3);
+	cout << "Inserting trees: " << endl << "t1" << endl << test_tree_1 << endl << "t2" << endl << test_tree_2 << endl << "t3" << endl << test_tree_3 << endl << endl;
+
 	ValueTree containter;
+
+	cout << "Trying to find each tree:" << endl;
+
 	if (test_trie.find(one_key, containter)) {
-		cout << "One: " << endl << containter << endl;
+		cout << "t1 OK: " << endl << containter << endl;
 	}
-	else cout << "One not found" << endl;
+	else cout << "ERROR!" << endl;
 
 	if (test_trie.find(two_key, containter)) {
-		cout << "Two: " << endl << containter << endl;
+		cout << "t2 OK: " << endl << containter << endl;
 	}
-	else cout << "Two not found" << endl;
+	else cout << "ERROR!" << endl;
 
 	if (test_trie.find(three_key, containter)) {
-		cout << "Three: " << endl << containter << endl;
+		cout << "t3 OK: " << endl << containter << endl;
 	}
-	else cout << "Three not found" << endl;
+	else cout << "ERROR!" << endl;
 
 	test_trie.remove(three_key);
+	cout << "Removing t3" << endl;
+
 	if (test_trie.find(three_key, containter)) {
-		cout << "Three: " << endl << containter << endl;
+		cout << "ERROR! Found: " << endl << containter << endl;
 	}
-	else cout << "Three not found" << endl;
+	else cout << "t3 not found! (OK)" << endl;
+
+	cout << "Check if the trees are still intact: "<< endl << "t1" << endl << test_tree_1 << endl << "t2" << endl << test_tree_2 << endl << "t3" << endl << test_tree_3 << endl;
 }
 
-int run_test() {
+void UI_test() {
+	//HELP
+	//LOAD big bigOne.txt
+	//LOAD small smallOne.txt
+	//CONTAINS big small
+	//COUNTAINS small big
+	//REMOVE big small
+	//REMOVE small big
+	//PRINT big
+	//PRINT small
+	//SHOW
+	//QUIT
+
+	UI test;
+	test.run();
+}
+
+int run_test(bool test_value_tree, bool test_prefix_tree, bool test_ui) {
 	_CrtMemState s1, s2, s3;
 	_CrtMemCheckpoint(&s1);
-
-	bool test_value_tree = true;
-	bool test_prefix_tree = true;
-	bool test_ui = true;
-
 	try {
 		if (test_value_tree) {
-			VTree_test_case_remove1();
-			VTree_test_case_remove2();
-			VTree_test_case_remove3();
-			VTree_test_case_remove4();
-			VTree_test_case_remove5();
-			VTree_test_case_remove6();
-			VTree_test_case_remove7();
-			VTree_test_case_remove8();
-			VTree_test_case_remove9();
-			VTree_test_case_contains();
-			VTree_test_case_save();
-			VTest_tree_case_copy();
+			VTree_test_case_remove("Test_trees/112.txt", "Test_trees/1.txt");
+			VTree_test_case_remove("Test_trees/null.txt", "Test_trees/null.txt");
+			VTree_test_case_remove("Test_trees/123.txt", "Test_trees/null.txt");
+			VTree_test_case_remove("Test_trees/123.txt", "Test_trees/123.txt");
+			VTree_test_case_remove("Test_trees/nasty.txt", "Test_trees/123.txt");
+			VTree_test_case_remove("Test_trees/minus21.txt", "Test_trees/two.txt");
+			VTree_test_case_remove("Test_trees/tripleCon.txt", "Test_trees/oneCon.txt");
+			VTree_test_case_remove("Test_trees/tripleCon.txt", "Test_trees/two.txt");
+			VTree_test_case_remove("Test_trees/task.txt", "Test_trees/taskSub.txt");
+			VTree_test_case_remove("Test_trees/twotwo.txt", "Test_trees/two.txt");
+
+			VTree_test_case_contains("Test_trees/112.txt", "Test_trees/null.txt", "0 - 1");
+			VTree_test_case_contains("Test_trees/123.txt", "Test_trees/1.txt", "0 - 1");
+			VTree_test_case_contains("Test_trees/123.txt", "Test_trees/minus21.txt", "0 - 0");
+			VTree_test_case_contains("Test_trees/null.txt", "Test_trees/null.txt", "1 - 1");
+			VTree_test_case_contains("Test_trees/123.txt", "Test_trees/123.txt", "1 - 1");
+
+			VTree_test_case_save("Test_trees/123.txt");
+			VTest_tree_case_copy("Test_trees/SmallOne.txt", "Test_trees/null.txt");
 		}
 		if (test_prefix_tree) {
 			Trie_test_case1();
-			Trie_test_case2();
+			Trie_test_case2("Test_trees/SmallOne.txt", "Test_trees/BigOne.txt", "Test_trees/oneCon.txt");
 		}
 		if (test_ui) {
-			UI_test_case_1();
+			UI_test();
 		}
-
 	}
 	catch (std::invalid_argument& e) {
-		cout << endl << e.what() << endl;
+		cout << endl << "ERROR! Exception throw: " << e.what() << endl;
 	}
 	cout << "Memory report: " << endl;
 	_CrtMemCheckpoint(&s2);
@@ -362,12 +276,3 @@ int run_test() {
 	else cout << "OK";
 	return 0;
 }
-/*
-	_CrtMemState s1, s2, s3;
-	_CrtMemCheckpoint(&s1);
-	//stuff
-	_CrtMemCheckpoint(&s2);
-	if (_CrtMemDifference(&s3, &s1, &s2)) {
-		cout << "Hey, memory leak!";
-	}
-*/

@@ -58,22 +58,22 @@ void VNode::replaceChild(VNode* old_child, VNode* new_child){
 }
 
 ValueTree::ValueTree(const ValueTree& other){
-    cloneRoot(other);
+    copyRoot(other);
 }
 
 ValueTree& ValueTree::operator=(const ValueTree& other){
     ValueTree temp_tree;
-    temp_tree.cloneRoot(other);
+    temp_tree.copyRoot(other);
     deleteNode(root_);
     root_ = temp_tree.root_;
     temp_tree.root_ = nullptr;
     return *this;
 }
 
-bool ValueTree::containsByValue(const ValueTree* const t) const {
-    VNode* t1_root = root_, * t2_root = t->root_;
-    if (!t1_root) return true; //empty tree is contained in every tree.
-    if (!t2_root) return false; //empty tree contains only itself.
+bool ValueTree::containsByValue(const ValueTree& t) const {
+    VNode* t1_root = root_, * t2_root = t.root_;
+    if (!t2_root) return true; //empty tree is contained in every tree.
+    if (!t1_root) return false; //empty tree contains only itself.
     queue<VNode*> bfs_queue;
     bfs_queue.push(t1_root);
     while (!bfs_queue.empty()) {
@@ -86,8 +86,8 @@ bool ValueTree::containsByValue(const ValueTree* const t) const {
     return false;
 }
 
-void ValueTree::removeByValue(const ValueTree* const t) {
-    VNode* t1_root = root_, * t2_root = t->root_;
+void ValueTree::removeByValue(const ValueTree&  t) {
+    VNode* t1_root = root_, * t2_root = t.root_;
     if (!t1_root || !t2_root) return;
     queue<VNode*> bfs_t1_queue;
     stack<VNode*> potential_subtrees_stack;
@@ -266,7 +266,7 @@ void ValueTree::saveAsFile(std::string file_name) const {
 }
 
 //Used in the copy constructor and operator =
-void ValueTree::cloneRoot(const ValueTree& other){
+void ValueTree::copyRoot(const ValueTree& other){
     if (other.root_) {
         root_ = new VNode(other.root_->value);
         queue<VNode*> other_bfs_queue, copy_bfs_queue;
@@ -288,15 +288,6 @@ void ValueTree::cloneRoot(const ValueTree& other){
     else root_ = nullptr;
 }
 
-bool ValueTree::containsNode(const VNode* node) const {
-    if (!node) return true;
-    while (node->parent) {
-        node = node->parent;
-    } 
-    if (node == root_) return true;
-    return false;
-}
-
 void ValueTree::deleteNode(VNode* node) {
     if (!node) return;
     for (size_t i = 0; i < node->children.size(); i++) {
@@ -307,8 +298,8 @@ void ValueTree::deleteNode(VNode* node) {
 
 //Returns true if t1 contained t2, else false.
 //In remaining_nodes will be added nodes from t1 that are NOT in t2 .
-//remaining_VNodes is valid only if the function returns true.
-bool matchTree(const VNode* const t1_root, const VNode* const t2_root, vector<VNode const*>& remaining_nodes) {
+//remaining_nodes is valid only if the function returns true.
+bool ValueTree::matchTree(const VNode* const t1_root, const VNode* const t2_root, vector<const VNode*>& remaining_nodes) {
     bool found = false;
     queue<NodePair> bfs_queue; //paired nodes are equal by value
     bfs_queue.push(NodePair(t1_root, t2_root));
@@ -335,12 +326,12 @@ bool matchTree(const VNode* const t1_root, const VNode* const t2_root, vector<VN
     return true;
 }
 
-bool matchTree(const VNode* const t1_root, const VNode* const t2_root) {
+bool ValueTree::matchTree(const VNode* const t1_root, const VNode* const t2_root) {
     vector<VNode const*> unused_arg;
     return matchTree(t1_root, t2_root, unused_arg);
 }
 
-int sumParentlessNodes(vector<VNode const*>& parentless_nodes) {
+int ValueTree::sumParentlessNodes(vector<VNode const*>& parentless_nodes) {
     int value = 0;
     for (size_t i = 0; i < parentless_nodes.size(); i++) {
         std::queue<VNode const*> bfs_queue;
