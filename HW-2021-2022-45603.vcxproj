@@ -142,14 +142,12 @@
   <ItemGroup>
     <ClCompile Include="custom_unit_tests\test.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="ui.cpp" />
     <ClCompile Include="utility.cpp" />
     <ClCompile Include="vtree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="custom_unit_tests\test.h" />
-    <ClInclude Include="test.h" />
     <ClInclude Include="trie.h" />
     <ClInclude Include="trie.ipp" />
     <ClInclude Include="ui.h" />
