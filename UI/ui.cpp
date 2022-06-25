@@ -1,5 +1,5 @@
-#include "UI/ui.h"
-#include "miscellaneous/utility.h"
+#include "ui.h"
+#include "../miscellaneous/utility.h"
 #include <iostream>
 
 using std::cout;

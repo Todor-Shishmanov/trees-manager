@@ -1,6 +1,6 @@
 #pragma once
-#include "vtree.h"
-#include "trie.h"
+#include "../ValueTree/vtree.h"
+#include "../Trie/trie.h"
 
 class UI
 {

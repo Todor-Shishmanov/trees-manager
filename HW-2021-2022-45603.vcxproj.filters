@@ -18,36 +18,36 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vtree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utility.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="custom_unit_tests\test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ValueTree\vtree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="miscellaneous\utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="vtree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utility.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ui.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="trie.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="trie.ipp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="custom_unit_tests\test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ValueTree\vtree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\ui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Trie\trie.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Trie\trie.ipp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="miscellaneous\utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
